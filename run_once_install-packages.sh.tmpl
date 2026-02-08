@@ -1,0 +1,118 @@
+#!/bin/bash
+# Install packages for Hyprland desktop environment
+# This script runs once during chezmoi init
+
+set -e
+
+# =========================================
+# Detect distro
+# =========================================
+{{ $distro := (index . "distro") | default .chezmoi.osRelease.id }}
+
+# Normalize known distro names
+{{ if eq $distro "opensuse-tumbleweed" }}
+{{ $distro = "opensuse" }}
+{{ end }}
+
+echo "🔧 Installing packages for distro: {{ $distro }}"
+
+# =========================================
+# openSUSE
+# =========================================
+{{ if eq $distro "opensuse" }}
+sudo zypper install -y \
+    hyprland waybar wofi rofi-wayland \
+    alacritty fish neovim tmux \
+    btop lazygit mako \
+    wl-clipboard cliphist \
+    grim slurp swappy \
+    brightnessctl playerctl \
+    hyprpaper hyprlang \
+    ttf-jetbrains-mono-nerd fontawesome-fonts \
+    dolphin pavucontrol blueman NetworkManager-applet
+
+# =========================================
+# Arch Linux
+# =========================================
+{{ else if eq $distro "arch" }}
+sudo pacman -S --noconfirm \
+    hyprland waybar wofi rofi \
+    alacritty fish neovim tmux \
+    btop lazygit mako \
+    wl-clipboard \
+    grim slurp swappy \
+    brightnessctl playerctl \
+    hyprpaper \
+    ttf-jetbrains-mono-nerd ttf-font-awesome \
+    dolphin pavucontrol blueman network-manager-applet
+
+# AUR packages
+if command -v yay >/dev/null 2>&1; then
+    yay -S --noconfirm hyprlock cliphist
+elif command -v paru >/dev/null 2>&1; then
+    paru -S --noconfirm hyprlock cliphist
+fi
+
+# =========================================
+# Fedora
+# =========================================
+{{ else if eq $distro "fedora" }}
+sudo dnf install -y \
+    hyprland waybar wofi rofi-wayland \
+    alacritty fish neovim tmux \
+    btop lazygit mako \
+    wl-clipboard \
+    grim slurp \
+    brightnessctl playerctl \
+    hyprpaper \
+    jetbrains-mono-fonts fontawesome-fonts \
+    dolphin pavucontrol blueman network-manager-applet
+
+sudo dnf copr enable -y solopasha/hyprland
+sudo dnf install -y hyprlock cliphist
+
+# =========================================
+# Debian / Ubuntu
+# =========================================
+{{ else if or (eq $distro "debian") (eq $distro "ubuntu") }}
+echo "⚠️  Hyprland support on Debian/Ubuntu is limited"
+sudo apt update
+sudo apt install -y \
+    waybar wofi rofi \
+    alacritty fish neovim tmux \
+    btop mako-notifier \
+    wl-clipboard \
+    grim slurp \
+    brightnessctl playerctl \
+    fonts-jetbrains-mono fonts-font-awesome \
+    dolphin pavucontrol blueman network-manager-gnome
+
+# =========================================
+# Unknown distro
+# =========================================
+{{ else }}
+echo "❌ Unknown distro: {{ $distro }}"
+echo "Please install packages manually."
+exit 1
+{{ end }}
+
+# =========================================
+# Install Tmux Plugin Manager
+# =========================================
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    echo "📦 Installing Tmux Plugin Manager..."
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
+# =========================================
+# Finish
+# =========================================
+echo "✅ Package installation complete!"
+echo ""
+echo "📝 Next steps:"
+echo "   1. Log out and select Hyprland session"
+echo "   2. Run: nvim (plugins auto-install)"
+echo "   3. Run: tmux, then press Ctrl-a + I to install plugins"
+
+echo "🔄 Refreshing font cache..."
+fc-cache -fv

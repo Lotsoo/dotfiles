@@ -1,0 +1,30 @@
+# Chezmoi configuration template
+# Auto-detects OS and distro
+
+[data]
+{{- $email := promptStringOnce . "email" "Your email address" -}}
+{{- $name := promptStringOnce . "name" "Your full name" -}}
+    email = {{ $email | quote }}
+    name = {{ $name | quote }}
+
+{{- $distro := "unknown" -}}
+{{- $pkgmgr := "unknown" -}}
+
+{{- if eq .chezmoi.os "linux" -}}
+{{-   if stat "/etc/SUSE-brand" -}}
+{{-     $distro = "opensuse" -}}
+{{-     $pkgmgr = "zypper" -}}
+{{-   else if stat "/etc/arch-release" -}}
+{{-     $distro = "arch" -}}
+{{-     $pkgmgr = "pacman" -}}
+{{-   else if stat "/etc/fedora-release" -}}
+{{-     $distro = "fedora" -}}
+{{-     $pkgmgr = "dnf" -}}
+{{-   else if or (stat "/etc/debian_version") (stat "/etc/ubuntu-release") -}}
+{{-     $distro = "debian" -}}
+{{-     $pkgmgr = "apt" -}}
+{{-   end -}}
+{{- end }}
+
+    distro = {{ $distro | quote }}
+    pkgmgr = {{ $pkgmgr | quote }}

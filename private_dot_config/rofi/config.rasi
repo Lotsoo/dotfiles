@@ -1,0 +1,15 @@
+configuration {
+    show-icons: true;
+    icon-theme: "Papirus";
+    display-drun: "Apps";
+    display-run: "Run";
+    display-window: "Windows";
+    drun-display-format: "{name}";
+    hover-select: false;
+    me-select-entry: "";
+    me-accept-entry: "MousePrimary";
+    scroll-method: 0;
+    terminal: "alacritty";
+}
+
+@theme "~/.config/rofi/themes/catppuccin.rasi"

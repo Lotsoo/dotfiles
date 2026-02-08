@@ -1,0 +1,236 @@
+* {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 15px;
+  border: none;
+  min-height: 0;
+}
+
+window#waybar {
+  background: transparent;
+}
+
+/* === BAR CONTAINER === */
+#waybar {
+  background: linear-gradient(135deg, rgba(30, 30, 46, 0.95), rgba(49, 50, 68, 0.92));
+  color: #cdd6f4;
+  border-radius: 14px;
+  padding: 4px 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* === MODULE COMMON === */
+#workspaces,
+#window,
+#clock,
+#cpu,
+#memory,
+#pulseaudio,
+#network,
+#battery,
+#tray {
+  background: rgba(49, 50, 68, 0.9);
+  padding: 4px 10px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+/* === WORKSPACES === */
+#workspaces button {
+  padding: 0 10px;
+  margin: 2px 3px;
+  color: #a6adc8;
+  background: transparent;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+#workspaces button:hover {
+  background: rgba(137, 180, 250, 0.2);
+  color: #cdd6f4;
+}
+
+#workspaces button.active {
+  background: linear-gradient(135deg, #89b4fa, #cba6f7);
+  color: #1e1e2e;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+/* === WINDOW TITLE === */
+#window {
+  color: #bac2de;
+}
+
+/* === CENTER CLOCK === */
+#clock {
+  background: linear-gradient(135deg, #89b4fa, #74c7ec);
+  color: #1e1e2e;
+  font-weight: bold;
+}
+
+/* === MODULE COLORS (Catppuccin Accent) === */
+#cpu {
+  color: #fab387;
+  /* Peach */
+}
+
+#memory {
+  color: #a6e3a1;
+  /* Green */
+}
+
+#pulseaudio {
+  color: #f5c2e7;
+  /* Pink */
+}
+
+#network {
+  color: #89dceb;
+  /* Sky */
+}
+
+#battery {
+  color: #f9e2af;
+  /* Yellow */
+}
+
+/* === STATUS COLORS === */
+#pulseaudio.muted {
+  color: #f38ba8;
+  background: rgba(243, 139, 168, 0.15);
+}
+
+#battery.warning {
+  color: #f9e2af;
+  background: rgba(249, 226, 175, 0.15);
+}
+
+#battery.critical {
+  color: #f38ba8;
+  background: rgba(243, 139, 168, 0.3);
+  font-weight: bold;
+}
+
+/* === HOVER EFFECT === */
+#cpu:hover,
+#memory:hover,
+#pulseaudio:hover,
+#network:hover,
+#battery:hover {
+  background: rgba(137, 180, 250, 0.25);
+}
+
+#clock:hover {
+  background: linear-gradient(135deg, #74c7ec, #89b4fa);
+}
+
+/* === SEPARATORS === */
+#cpu,
+#memory,
+#pulseaudio,
+#network,
+#battery {
+  margin-left: 4px;
+  border-left: 2px solid rgba(137, 180, 250, 0.25);
+  padding-left: 12px;
+}
+
+/* === TRAY === */
+#tray {
+  background: rgba(49, 50, 68, 0.8);
+}
+
+#tray>.passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray>.needs-attention {
+  -gtk-icon-effect: highlight;
+  background: rgba(243, 139, 168, 0.2);
+}
+
+/* === POWER BUTTON === */
+#custom-power {
+  background: linear-gradient(135deg, rgba(243, 139, 168, 0.9), rgba(235, 107, 126, 0.9));
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 0 10px;
+  margin-left: 6px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+#custom-power:hover {
+  background: linear-gradient(135deg, rgba(235, 107, 126, 0.8), rgba(243, 139, 168, 0.8));
+}
+
+/* === CUSTOM MEDIA === */
+#custom-media {
+  background: rgba(49, 50, 68, 0.9);
+  color: #cba6f7;
+  /* Mauve */
+  padding: 4px 12px;
+  border-radius: 10px;
+  margin-left: 8px;
+}
+
+/* === CUSTOM WEATHER === */
+#custom-weather {
+  background: rgba(49, 50, 68, 0.9);
+  color: #94e2d5;
+  /* Teal */
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+
+/* === CUSTOM UPDATES === */
+#custom-updates {
+  background: rgba(49, 50, 68, 0.9);
+  color: #f38ba8;
+  /* Red */
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+
+/* === BACKLIGHT === */
+#backlight {
+  background: rgba(49, 50, 68, 0.9);
+  color: #f9e2af;
+  /* Yellow */
+  padding: 4px 10px;
+  border-radius: 10px;
+  margin-left: 4px;
+  border-left: 2px solid rgba(137, 180, 250, 0.25);
+  padding-left: 12px;
+}
+
+/* === BLUETOOTH === */
+#bluetooth {
+  background: rgba(49, 50, 68, 0.9);
+  color: #89b4fa;
+  /* Blue */
+  padding: 4px 10px;
+  border-radius: 10px;
+  margin-left: 4px;
+  border-left: 2px solid rgba(137, 180, 250, 0.25);
+  padding-left: 12px;
+}
+
+#bluetooth.disabled {
+  color: #6c7086;
+  /* Overlay0 - dimmed */
+}
+
+#bluetooth.connected {
+  color: #a6e3a1;
+  /* Green */
+}
+
+/* === HOVER FOR NEW MODULES === */
+#custom-media:hover,
+#custom-weather:hover,
+#custom-updates:hover,
+#backlight:hover,
+#bluetooth:hover {
+  background: rgba(137, 180, 250, 0.25);
+}

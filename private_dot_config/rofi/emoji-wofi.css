@@ -1,0 +1,24 @@
+/* Emoji picker wofi style */
+window {
+    background-color: rgba(30, 30, 46, 0.95);
+    border: 2px solid #89b4fa;
+    border-radius: 12px;
+}
+
+#input {
+    display: none;
+}
+
+#outer-box {
+    padding: 10px;
+}
+
+#entry {
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 22px;
+}
+
+#entry:selected {
+    background-color: #89b4fa;
+}
